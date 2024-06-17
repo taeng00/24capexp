@@ -1,32 +1,39 @@
-import React, { useState } from 'react';
-import './Disease.css';
+import React, { useState } from 'react'; // React와 useState 훅을 임포트합니다.
+import './Disease.css'; // CSS 파일을 임포트합니다.
 
 const Disease = () => {
-  const [step, setStep] = useState(1);
+  // 현재 단계를 나타내는 상태와 증상을 나타내는 상태를 선언합니다.
+  const [step, setStep] = useState(1); // 현재 단계 상태 (1단계부터 시작)
   const [symptoms, setSymptoms] = useState({
-    step1: '',
-    step2: '',
-    step3: ''
+    step1: '', // 1단계에서 선택한 증상
+    step2: '', // 2단계에서 선택한 증상
+    step3: '' // 3단계에서 선택한 증상
   });
 
+  // 증상 변경을 처리하는 함수입니다. 단계와 해당 값을 매개변수로 받습니다.
   const handleSymptomsChange = (stepNumber, value) => {
+    // 기존 증상 상태를 복사하고, 해당 단계의 증상을 업데이트합니다.
     setSymptoms({
       ...symptoms,
       [`step${stepNumber}`]: value
     });
 
+    // 3단계 이하일 경우 다음 단계로 이동합니다.
     if (stepNumber < 3) {
       setStep(stepNumber + 1);
     }
   };
 
+  // 모든 단계가 완료되었을 때 호출되는 함수입니다.
   const handleComplete = () => {
-    setStep(4);
+    setStep(4); // 4단계로 상태를 변경하여 결과를 보여줍니다.
   };
 
+  // 결과를 표시하는 컴포넌트입니다. 선택한 증상을 기반으로 진단 결과를 보여줍니다.
   const Result = ({ symptoms }) => {
-    const { step1, step2, step3 } = symptoms;
+    const { step1, step2, step3 } = symptoms; // 증상 상태에서 각 단계의 증상을 추출합니다.
 
+    // 진단 데이터입니다. 증상 조합에 따른 질병을 정의합니다.
     const diagnosis = {
       '눈 이상': {
         '눈이 벌겋게 붓는다': {
@@ -66,6 +73,7 @@ const Disease = () => {
       }
     };
 
+    // 선택한 증상에 맞는 진단 결과를 찾습니다. 없을 경우 기본 값을 사용합니다.
     const result = diagnosis[step1]?.[step2]?.[step3] || {
       name: '알 수 없는 질병',
       description: '해당 증상에 대한 정보를 찾을 수 없습니다.',
@@ -90,9 +98,10 @@ const Disease = () => {
     );
   };
 
+  // 1단계: 증상 카테고리를 선택하는 컴포넌트입니다.
   const Step1 = ({ nextStep, selected }) => {
     const selectCategory = (value) => {
-      nextStep(1, value);
+      nextStep(1, value); // 카테고리를 선택하고 다음 단계로 이동합니다.
     };
 
     return (
@@ -113,9 +122,10 @@ const Disease = () => {
     );
   };
 
+  // 2단계: 증상을 선택하는 컴포넌트입니다.
   const Step2 = ({ nextStep, selected }) => {
     const selectSymptom1 = (value) => {
-      nextStep(2, value);
+      nextStep(2, value); // 증상을 선택하고 다음 단계로 이동합니다.
     };
 
     return (
@@ -139,9 +149,10 @@ const Disease = () => {
     );
   };
 
+  // 3단계: 추가 증상을 선택하는 컴포넌트입니다.
   const Step3 = ({ nextStep, selected }) => {
     const selectSymptom2 = (value) => {
-      nextStep(3, value);
+      nextStep(3, value); // 추가 증상을 선택하고 다음 단계로 이동합니다.
     };
 
     return (
@@ -177,6 +188,7 @@ const Disease = () => {
     );
   };
 
+  // Disease 컴포넌트의 렌더링 부분입니다. 단계별로 조건부 렌더링을 사용합니다.
   return (
     <div className="content">
       <div className="banner">
@@ -219,5 +231,4 @@ const Disease = () => {
   );
 };
 
-export default Disease;
-
+export default Disease; // Disease 컴포넌트를 기본 내보내기(export) 합니다.

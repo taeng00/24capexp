@@ -120,3 +120,22 @@ body {
   border-radius: 8px; /* 모서리를 둥글게 8px로 설정합니다. */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과를 추가하여 입체감을 줍니다. */
 }
+
+/*미디어 쿼리를 이용한 반응형*/ 
+/*.container의 padding 값을 화면이 좁아질 때 작게 조정하여 내용이 넘치지 않도록 합니다.
+.button-group button과 .complete-button의 padding과 font-size를 작게 조정하여 작은 화면에서도 버튼이 보기 좋게 표시되도록 합니다.*/
+@media (max-width: 600px) {
+  .container {
+    padding: 20px;
+  }
+
+  .button-group button {
+    padding: 10px 15px;
+    font-size: 14px;
+    }
+
+  .complete-button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
